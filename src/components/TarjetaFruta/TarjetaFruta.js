@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import "./TarjetaFruta.css";
+import styles from "./TarjetaFruta.module.css"
 
 // Functional
 
@@ -19,7 +19,7 @@ const FruitTraget = (props) => {
         guardarCantidad(0)
     }
 
-    const clases = cantidad? `card-active  card`: "card";
+    const clases = cantidad? `${styles['card-active']}  ${styles['card']}`: `${styles['card']}`;
 
     return(
         <div className= {clases}>

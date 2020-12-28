@@ -1,5 +1,5 @@
 import React from 'react';
-import FruitTraget from "./components/TarjetaFruta";
+import FruitTraget from "./components/TarjetaFruta/TarjetaFruta";
 import "./index.css"
 
 const App = () => {
