@@ -6,17 +6,6 @@ const App = () => {
 
     return(
         <>
-            {/*
-            <TarjetaFruta
-                name={"Tomate"}
-                price={2.2}
-            />
-            <TarjetaFruta
-                name={"Pollo"}
-                price={8.4}
-            />
-            */}
-
             <FruitTraget 
                 name={"Sandia"}
                 price={10.30}

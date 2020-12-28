@@ -1,0 +1,16 @@
+.card{
+    border: 1px ridge red;
+    padding: 30px;
+    width: 50%;
+    margin: 1em auto;
+    background:white; 
+    color: red;
+    transition: all 400ms ease-out;
+}
+
+.card-active{
+    border: 3px ridge white;
+    background: linear-gradient(120deg ,lightGreen ,lightBlue); 
+    color: black;
+    transition: all 400ms ease-out;
+}
