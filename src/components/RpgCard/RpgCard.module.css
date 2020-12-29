@@ -1,0 +1,67 @@
+
+.rpg-card{
+    background-color:cadetblue;
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 5%;
+    border: 2px ridge lightgoldenrodyellow;
+}
+
+.rpg-card::after{
+    content: "";
+    position: absolute;
+    background-color: royalblue;
+    border: 2px solid silver;
+    transform: translate(-20%,20%);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+h1, h3,h5,p{
+    text-align: center;
+    color: white;
+    font-style: oblique;
+    font-weight: bold;
+}
+
+p{
+    display: inline-block;
+}
+
+h3{
+    font-size: 3em;
+    font-style: normal;
+}
+
+.advert{
+    color: orange;
+}
+
+.danger{
+    color: red;
+}
+
+.div-button{
+    padding: 0 10px;
+}
+
+button{
+    display: inline-block;
+    margin-left: 2.5%;
+    background-color: aquamarine;
+    border-radius: 20px;
+}
+
+button:hover{
+    cursor: pointer;
+    opacity: 0.5;
+    box-shadow: 3px 2px aliceblue;
+}
+
+a{
+    color: aliceblue;
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: x-large;
+    box-shadow: 2px 3px aliceblue;
+}
