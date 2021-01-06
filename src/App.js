@@ -1,26 +1,24 @@
 import React,{useState} from 'react';
 
 
-
-
-
 const App = () => {
-    let [text,setText] = useState('');
-    let [event,setEvent] = useState('');
-
-    const manejador = (e) => {
-        if(e.type === "paste"){
-            alert("no");
-            return;
-        }
-        setText(e.target.value);
-    };
     
+    let [color,setColor] = useState('blue');
+
+    const handler = (e) =>{
+        // Funciona sin esto
+        //e.persist();
+        setColor(e.target.value);
+    }
+
+    const styles = {
+        color: color
+    }
+
     return(
         <>
-            <input type="text" onChange={(e)=>{manejador(e)}} onPaste={(e)=>{manejador(e)}} />
-            <h3>{text}</h3>
-            <h2>{event}</h2>
+            <input type="text" onChange={(e) => handler(e)}/>
+            <h1 style={styles}>{color}</h1>
         </>
     );
 };
