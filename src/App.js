@@ -1,34 +1,40 @@
 import React,{useState} from 'react';
+import ReactDOM from 'react-dom';
 
-// Eventos personalizados
+const Portal = ({children,visible}) => {
+    const styles ={
+        width:'100%',
+        background:'red',
+        height: '100vh',
+        color: 'white'
+    }
 
-const Hijo = (props) => {
-    return(
-
-        <>
-            <button onClick={()=> props.onSaludo("React 🔥")}>
-                {props.children}
-            </button>
-        </>
-    );
+    
+    return visible?(ReactDOM.createPortal((
+        <div style={styles}>
+            <h1>{children}</h1>
+        </div>
+    ), 
+    document.getElementById("modal")))
+    :null;
 };
 
 
-
 const App = () => {
-    
-    const saludo = (name) =>{
-        alert(name);
+    let [visible,setVisible] = useState(false);
+
+    const handler = () =>{
+        if(visible) return setVisible(false);
+
+        return setVisible(true);
     }
 
-    // Props children
     return(
-        <>
-            <Hijo
-                onSaludo={saludo}
-            >
-                <em>SALUDAR</em>
-            </Hijo>
+        <>  
+            <button onClick={()=> handler()}>{!visible?"Mostrar":"Ocultar"}</button>
+            <Portal visible={visible}>
+                <em>Hola</em>
+            </Portal>
         </>
     );
 };
