@@ -14,27 +14,15 @@ const Bird = () => {
 
 const App = () => {
 
-    const [techs, setTechs] = useState([]);
-
-    const handler = (e) => {
-        const techs = Array.from(e.target.selectedOptions).map(option => option.value);
-        setTechs(techs);
-    };
-    
+    const [active, setActive] = useState(false);    
 
     return(
         <>  
-            <h1>Etiqueta Select <Bird /></h1>
+            <h1>Input Checkbox {active && <span style={{color:"blue"}}>Active</span>} <Bird /></h1>
             <form>
-                <select  value={techs} onChange={handler} multiple>
-                    <option value="Angular">Angular</option>
-                    <option value="React">React</option>
-                    <option value="Vue">Vue</option>
-                </select>
+                <input type="checkbox" checked={active} onChange={() => setActive(active?false:true)}/>
             </form>
-            <ul>
-                {techs.map(value => <li>{value}</li>)}
-            </ul>
+            
         </>
     );
 };
