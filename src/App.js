@@ -1,4 +1,4 @@
-import React,{createRef,useEffect} from 'react';
+import React,{useState} from 'react';
 
 const Bird = () => {
     return(
@@ -10,37 +10,51 @@ const Bird = () => {
     );
 };
 
-const Inputs = (props) => {
+const Inputs = ({placeholder,name,onChange}) => {
+
 
     const handler = (e) => {
-        e.preventDefault();
-        const nombre = e.target[0].value;
-        const password = e.target[1].value;
-        props.onSend({nombre,password});
+        const text = e.target.value; 
+
+        onChange(name,text);
     };
     
 
     return(
-        <form onSubmit={(e)=>handler(e)}>
-            <input type="text"  placeholder="Name"/>
-            <input type="password"  placeholder="password"/>
-            <button>SEND</button>
-        </form>
+        <>
+            <label htmlFor={name}>{name}: </label>
+            <input type="text"  placeholder={placeholder}  name={name} id={name}  onChange={handler}/>
+        </>
     );
 };
 
 const App = () => {
 
-    const onSent = (data) =>{
-        console.log(data);
-    }
+    const [name,saveName] = useState("");
+    const [email,saveEmail] = useState("");
+
+    const update = (name,data) => {
+        name === "name"? saveName(data):saveEmail(data);
+    };
+    
+
 
     return(
         <>  
-            <h1>Inputs no controlados <Bird /></h1>
+            <h1>Inputs controlados <Bird /></h1>
             <Inputs 
-                onSend={onSent}
+                placeholder={"Name"}
+                name={"name"}
+                onChange={update}
             />
+            <Inputs 
+                placeholder={"Email"}
+                name={"email"}
+                onChange={update}
+            />
+
+            <h3>Name: {name}</h3>
+            <h3>Email: {email}</h3>
         </>
     );
 };
