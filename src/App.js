@@ -1,28 +1,27 @@
 import React,{useState} from 'react';
 
-const Bird = () => {
-    return(
-        <>
-            <span role="img" aria-label="bird">
-                🦅
-            </span>
-        </>
-    );
-};
 
 
+const App = () => { 
 
-const App = () => {
+    const [bug,setBug] = useState(false);
 
-    const [active, setActive] = useState(false);    
+    const error = () => {
+        setBug(true);
+        
+    };
+
+    if(bug){
+        throw new Error("He fallado 😥😥");
+    }
+    
 
     return(
         <>  
-            <h1>Input Checkbox {active && <span style={{color:"blue"}}>Active</span>} <Bird /></h1>
-            <form>
-                <input type="checkbox" checked={active} onChange={() => setActive(active?false:true)}/>
-            </form>
-            
+            <button 
+            onClick={
+                ()=> error()
+            }>Bugg</button>
         </>
     );
 };
