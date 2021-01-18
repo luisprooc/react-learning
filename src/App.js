@@ -1,58 +1,47 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 
-const API = ({catchPosts}) => {
-    const [charge,saveCharge] = useState(true);
+const API = () => {
+    const [movie,saveMovie] = useState({});
 
-    useEffect(()=>{
-        fetch("http://jsonplaceholder.typicode.com/posts")
+
+    const searchMovie = (e) => {
+        e.preventDefault();
+        const query = e.target[0].value;
+        const url = `https://www.omdbapi.com/?t=${query}&apikey=a9a1b0b6`
+
+        fetch(url)
             .then(res => res.json())
-            .then(res => sendPosts(res))
-            .catch(error => console.log(error))
-    },[]);
-
-    const sendPosts = (posts) => {
-        posts = posts.splice(0,10);
-        saveCharge(false);
-        catchPosts(posts);
+            .then(res => saveMovie(res))
     };
     
-    if(charge){
-        return <h1>Chargin.......</h1>
-    }
+
 
     return(
         <>
-            <h1 style={{color:"blue"}}>
-                POSTS: 
+            <h1>
+                Seek Movies: 
             </h1>
+            <form onSubmit={(e)=>searchMovie(e)}>
+                <input type="text" placeholder="Movie, example: Iron Man"/>
+                <button>Send</button>
+            </form>
+
+            <div>
+                <h1>Name: {movie.Title}</h1>
+                <h4>Resume: {movie.Plot}</h4>
+                <p>Actors: {movie.Actors}</p>
+                <img src={movie.Poster}></img>
+            </div>
         </>
     );
 };
 
 
 const App = () => { 
-    const [posts,savePosts] = useState([]);
-
-    const catchPosts = (res) =>{
-        savePosts(res);
-    }
 
     return(
         <>  
-            <API
-                catchPosts={catchPosts}
-            />
-            {posts.map(post=>{
-
-                return(
-                    <div key={post.id}>
-                        <h2>Title: {post.title}</h2> 
-                        <h4>UserID: {post.id}</h4>
-                        <p>Body: {post.body}</p>
-                        <hr/>
-                    </div>
-                )
-            })}
+            <API />
         </>
     );
 };
