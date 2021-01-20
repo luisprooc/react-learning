@@ -1,74 +1,53 @@
-import React, { Component } from 'react'
+import React,{useState} from 'react';
 
-const Header = () => {
-  const subtitleStyles = {
-    fontWeight: 'bold'
-  }
 
-  const headerStyles  = {
-    margin: '0.6em',
-    borderRadius: '0.3em',
-    border: '1px solid #d2d2d2',
-    padding: '2em 0.4em',
-    fontFamily: 'monospace',
-    fontSize: '17px'
-  }
+const ComponentA = ({count,addA}) => {
+    return(
+        <>
+            <button onClick={addA}>A: {count}</button>
+        </>
+    );
+};
 
-  return (
-    <header style={headerStyles}>
-      <div>
-        Comunicacion entre componentes
-      </div>
-      <div style={subtitleStyles}>
-        Metodos de Instancia 
-        <span role='img' aria-label='flame' >
-          🔥
-        </span>
-      </div>
-    </header>
-  )
-}
+const ComponentB = ({count,addB}) => {
+    return(
+        <>
+            <button onClick={addB}>B: {count}</button>
+        </>
+    );
+};
 
-class Hijo extends Component {
-  state = {
-    message: '****'
-  }
 
-  dispatchAlert = (e, message = 'Alert desde el Hijo') => {
-    alert(message)
-    this.setState({ message })
-  }
 
-  render () {
-    return (
-      <div>
-        <h2>{ this.state.message }</h2>
-        <button onClick={this.dispatchAlert}>
-          Hijo
-        </button>
-      </div>
-    )
-  }
-}
 
-class App extends Component {
-  hijo = React.createRef()
+const App = () => { 
 
-  handleClick = () => {
-    this.hijo.current.dispatchAlert(null, 'Hola desde el Padre')
-  }
+    let [countA,saveCountA] = useState(0);
+    let [countB,saveCountB] = useState(0);
 
-  render () {
-    return (
-      <div>
-        <Header />
-        <Hijo ref={this.hijo} />
-        <button onClick={this.handleClick}>
-          Padre
-        </button>
-      </div>
-    )
-  }
-}
+    const saveA = () => {
+        saveCountA(++countA);
+    };
 
-export default App
+    const saveB = () => {
+        saveCountB(countB+=2);
+    };
+    
+
+    return(
+        <>  
+            <h1>Comunicacion entre hermanos </h1>
+            <ComponentA
+                count={countA}
+                addA={saveB}
+            />
+            <br/>
+            <ComponentB
+                count={countB}
+                addB={saveA}
+            />
+        </>
+    );
+};
+
+export default App;
