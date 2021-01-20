@@ -1,58 +1,74 @@
-import React,{useState} from 'react';
-import axios from "axios";
+import React, { Component } from 'react'
 
-const API = () => {
-    const [movie,saveMovie] = useState({});
-    const [show,setShow] = useState(false);
-    
-    const searchMovie = async(e) => {
-        e.preventDefault();
-        const query = e.target[0].value;
-        const url = `https://www.omdbapi.com/?t=${query}&apikey=a9a1b0b6`
+const Header = () => {
+  const subtitleStyles = {
+    fontWeight: 'bold'
+  }
 
-        const res = await axios.get(url);
+  const headerStyles  = {
+    margin: '0.6em',
+    borderRadius: '0.3em',
+    border: '1px solid #d2d2d2',
+    padding: '2em 0.4em',
+    fontFamily: 'monospace',
+    fontSize: '17px'
+  }
 
-        // Con fetch
+  return (
+    <header style={headerStyles}>
+      <div>
+        Comunicacion entre componentes
+      </div>
+      <div style={subtitleStyles}>
+        Metodos de Instancia 
+        <span role='img' aria-label='flame' >
+          🔥
+        </span>
+      </div>
+    </header>
+  )
+}
 
-        //const res = await fetch(url);
-        //const data = res.json();
-        
-        saveMovie(res.data);
-        setShow(true);
-    };
-    
+class Hijo extends Component {
+  state = {
+    message: '****'
+  }
 
+  dispatchAlert = (e, message = 'Alert desde el Hijo') => {
+    alert(message)
+    this.setState({ message })
+  }
 
-    return(
-        <>
-            <h1>
-                Seek Movies: 
-            </h1>
-            <form onSubmit={(e)=>searchMovie(e)}>
-                <input type="text" placeholder="Movie, example: Iron Man"/>
-                <button>Send</button>
-            </form>
+  render () {
+    return (
+      <div>
+        <h2>{ this.state.message }</h2>
+        <button onClick={this.dispatchAlert}>
+          Hijo
+        </button>
+      </div>
+    )
+  }
+}
 
-            {show &&(
-            <div>
-                <h1>Name: {movie.Title}</h1>
-                <h4>Resume: {movie.Plot}</h4>
-                <p>Actors: {movie.Actors}</p>
-                <img src={movie.Poster}></img>
-            </div>
-            )}
-        </>
-    );
-};
+class App extends Component {
+  hijo = React.createRef()
 
+  handleClick = () => {
+    this.hijo.current.dispatchAlert(null, 'Hola desde el Padre')
+  }
 
-const App = () => { 
+  render () {
+    return (
+      <div>
+        <Header />
+        <Hijo ref={this.hijo} />
+        <button onClick={this.handleClick}>
+          Padre
+        </button>
+      </div>
+    )
+  }
+}
 
-    return(
-        <>  
-            <API />
-        </>
-    );
-};
-
-export default App;
+export default App
