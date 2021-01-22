@@ -1,5 +1,7 @@
-import React,{useEffect, useState} from 'react';
-import PubSub from "pubsub-js";
+import React,{useState,createContext} from 'react';
+
+
+const {Provider, Consumer} = createContext();
 
 const styles = {
     border: "3px solid gray",
@@ -7,24 +9,19 @@ const styles = {
     width: "50%"
 }
 
-const Bisnieto = () => {
-
-    const handler = () => {
-        PubSub.publish("saludo","Hola desde el Bisnieto");
-    };
-    
-    return(
-        <div style={styles}>
-            <button onClick={()=>handler()}>Biniesto</button>
-        </div>
-    );
-};
 
 const Nieto = () => {
     return(
-        <div style={styles}>
-            <Bisnieto />
-        </div>
+        <Consumer>
+            {({clicks,addClicks})=>{
+                return(
+                    <div style={styles}>
+            
+                        <button onClick={addClicks}>Disparar ({clicks})</button>
+                    </div>
+                )
+            }}
+        </Consumer>
     );
 };
 
@@ -41,16 +38,22 @@ const Hijo = () => {
 
 const App = () => { 
 
-    useEffect(()=>{
-        PubSub.subscribe("saludo",(e,data)=>{
-            console.log(data);
-        });
-    })
+    let [clicks, saveClicks] = useState(0);
+
+    const addClicks = () => {
+        saveClicks(++clicks)
+    };
+    
 
     return(
         <>  
-            <h1>Patron observer </h1>
-            <Hijo />
+            <Provider value={{
+                clicks: clicks,
+                addClicks: addClicks
+            }}>
+                <h1>API CONTEXT </h1>
+                <Hijo />
+            </Provider>
         </>
     );
 };
