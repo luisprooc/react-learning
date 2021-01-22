@@ -1,19 +1,38 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
+import PubSub from "pubsub-js";
 
+const styles = {
+    border: "3px solid gray",
+    margin: "2em auto",
+    width: "50%"
+}
 
-const ComponentA = ({count,addA}) => {
+const Bisnieto = () => {
+
+    const handler = () => {
+        PubSub.publish("saludo","Hola desde el Bisnieto");
+    };
+    
     return(
-        <>
-            <button onClick={addA}>A: {count}</button>
-        </>
+        <div style={styles}>
+            <button onClick={()=>handler()}>Biniesto</button>
+        </div>
     );
 };
 
-const ComponentB = ({count,addB}) => {
+const Nieto = () => {
     return(
-        <>
-            <button onClick={addB}>B: {count}</button>
-        </>
+        <div style={styles}>
+            <Bisnieto />
+        </div>
+    );
+};
+
+const Hijo = () => {
+    return(
+        <div style={styles}>
+            <Nieto />
+        </div>
     );
 };
 
@@ -22,30 +41,16 @@ const ComponentB = ({count,addB}) => {
 
 const App = () => { 
 
-    let [countA,saveCountA] = useState(0);
-    let [countB,saveCountB] = useState(0);
-
-    const saveA = () => {
-        saveCountA(++countA);
-    };
-
-    const saveB = () => {
-        saveCountB(countB+=2);
-    };
-    
+    useEffect(()=>{
+        PubSub.subscribe("saludo",(e,data)=>{
+            console.log(data);
+        });
+    })
 
     return(
         <>  
-            <h1>Comunicacion entre hermanos </h1>
-            <ComponentA
-                count={countA}
-                addA={saveB}
-            />
-            <br/>
-            <ComponentB
-                count={countB}
-                addB={saveA}
-            />
+            <h1>Patron observer </h1>
+            <Hijo />
         </>
     );
 };
