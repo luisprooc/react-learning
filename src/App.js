@@ -1,59 +1,62 @@
-import React,{useState,createContext} from 'react';
+import React,{useState} from 'react';
 
 
-const {Provider, Consumer} = createContext();
-
-const styles = {
-    border: "3px solid gray",
-    margin: "2em auto",
-    width: "50%"
-}
 
 
-const Nieto = () => {
+const List = ({list,render}) => {
     return(
-        <Consumer>
-            {({clicks,addClicks})=>{
+        <>
+            {list.map(fruit =>{
+
+                if(render){
+                    return(
+                        render(fruit)
+                    );
+                }
+                const {name,price} = fruit;
                 return(
-                    <div style={styles}>
-            
-                        <button onClick={addClicks}>Disparar ({clicks})</button>
-                    </div>
+                    <li key={name}> {name} --- {price}$ </li>
                 )
-            }}
-        </Consumer>
+            })}
+        </>
     );
 };
 
-const Hijo = () => {
-    return(
-        <div style={styles}>
-            <Nieto />
-        </div>
-    );
-};
 
 
 
 
 const App = () => { 
 
-    let [clicks, saveClicks] = useState(0);
-
-    const addClicks = () => {
-        saveClicks(++clicks)
-    };
-    
+    const [fruits,saveFruits] = useState(
+        [
+        {
+            name: "Fresas",
+            price: 5
+        },
+        {
+            name: "Sandias",
+            price: 10
+        },
+        {
+            name: "Uvas",
+            price: 3
+        },
+    ]);
 
     return(
         <>  
-            <Provider value={{
-                clicks: clicks,
-                addClicks: addClicks
-            }}>
-                <h1>API CONTEXT </h1>
-                <Hijo />
-            </Provider>
+            <h1 style={{textAlign:"center"}}>Render Props</h1>
+            <List
+                list={fruits}
+                render={(data)=> (
+                    <div>
+                        <p>{data.name} - {data.price}$ </p>
+                        <hr/>
+                    </div>
+                    )
+                }
+            />
         </>
     );
 };
