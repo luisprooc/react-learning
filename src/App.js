@@ -1,32 +1,29 @@
 import React,{useEffect, useState} from 'react';
 
 
+const Photo = ({key,src,title}) => (
+    <div key={key} style={{display:"inline-block"}}>
+        <img src={src} alt={title}/>
+        <p>{title}</p>
+    </div>
+);
 
 const App = () => { 
 
-    const [clicks, setClicks] = useState(0);
-    const [emoji, setEmoji] = useState("🧨");
+    const [photos, setPhotos] = useState([]);
 
     useEffect(()=>{
 
-        alert("useEffect");
-    },[emoji]);
+        fetch("https://jsonplaceholder.typicode.com/photos")
+            .then(res => res.json())
+            .then(res => setPhotos(res.splice(0,10)))
+    },[]);
 
-    const addClicks = () => {
-        setClicks(clicks+1);
-    }
-
-    const toogleEmoji = () => {
-        const nextEmoji = emoji === "🧨" ? "🎇" : "🧨";
-        setEmoji(nextEmoji)
-    }
 
     return(
         <>  
-            <h1>useEffect</h1>
-            <button onClick={addClicks}>CLICKS {clicks}</button>
-            <button onClick={toogleEmoji}>TOGGLE EMOJI</button>
-            <h2>{emoji}</h2>
+            <h1>PHOTOS</h1>
+            {photos.length > 0? photos.map( item => <Photo key={item.id} src={item.url} title={item.title}/> ):null}
         </>
     );
 };
