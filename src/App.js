@@ -2,61 +2,49 @@ import React,{useState} from 'react';
 
 
 
-
-const List = ({list,render}) => {
-    return(
-        <>
-            {list.map(fruit =>{
-
-                if(render){
-                    return(
-                        render(fruit)
-                    );
-                }
-                const {name,price} = fruit;
-                return(
-                    <li key={name}> {name} --- {price}$ </li>
-                )
-            })}
-        </>
-    );
-};
-
-
-
-
-
 const App = () => { 
 
-    const [fruits,saveFruits] = useState(
-        [
-        {
-            name: "Fresas",
-            price: 5
-        },
-        {
-            name: "Sandias",
-            price: 10
-        },
-        {
-            name: "Uvas",
-            price: 3
-        },
-    ]);
+    const [data] = useState({
+        id:10,
+        question:"COMO ME LLAMO?",
+        answers:[
+            {   
+                optId: 100,
+                opt: "Carlos"
+            },
+            {   
+                optId: 10,
+                opt: "Luis"
+            },
+            {   
+                optId: 20,
+                opt: "Juan"
+            }
+        ],
+        correct: "Luis"
+    });
+
+    const [res,saveRes] = useState("");
+
+    const handler = (e) => {
+        saveRes(e.target.firstChild);
+    }
+
+    const send = () =>{
+        console.log(data.correct,res)
+        data.correct === res?alert("SII"):alert("NELL PRRo");
+    }
 
     return(
         <>  
-            <h1 style={{textAlign:"center"}}>Render Props</h1>
-            <List
-                list={fruits}
-                render={(data)=> (
-                    <div>
-                        <p>{data.name} - {data.price}$ </p>
-                        <hr/>
-                    </div>
-                    )
-                }
-            />
+            <h1>TEST</h1>
+            {data && (
+                <div>
+                    <h2>{data.question}</h2>
+                    {data.answers.sort((a,b) => a.optId - b.optId).map(item => <div onClick={(e)=> handler(e)} key={item.optId} vocab={"HEY"}>{item.opt}</div>)}
+                </div>
+            )}
+            <button onClick={()=> send()}>Evaluar</button>
         </>
     );
 };
