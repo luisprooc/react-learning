@@ -4,32 +4,29 @@ import React,{useEffect, useState} from 'react';
 
 const App = () => { 
 
-    const [posX, setPosX] = useState(0);
-    const [posY, setPosY] = useState(0);
+    const [clicks, setClicks] = useState(0);
+    const [emoji, setEmoji] = useState("🧨");
 
-    
-    //DidMound
-    //DiuUpdate
     useEffect(()=>{
 
-        window.addEventListener("mousemove",handleMove);
-        
-        // DidwillUnmount
-        return () => {
-            window.removeEventListener("mousemove",handleMove);
-        }
-    },[]);
+        alert("useEffect");
+    },[emoji]);
 
-    const handleMove = (e) => {
-        setPosX(e.clientX);
-        setPosY(e.clientY);
+    const addClicks = () => {
+        setClicks(clicks+1);
+    }
+
+    const toogleEmoji = () => {
+        const nextEmoji = emoji === "🧨" ? "🎇" : "🧨";
+        setEmoji(nextEmoji)
     }
 
     return(
         <>  
             <h1>useEffect</h1>
-            <h4>X: {posX}</h4>
-            <h4>Y: {posY}</h4>
+            <button onClick={addClicks}>CLICKS {clicks}</button>
+            <button onClick={toogleEmoji}>TOGGLE EMOJI</button>
+            <h2>{emoji}</h2>
         </>
     );
 };
