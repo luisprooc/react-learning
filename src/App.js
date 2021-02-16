@@ -1,28 +1,25 @@
-import React, { useState,createContext, useLayoutEffect } from 'react';
-import Hijo from './components/children';
-
-export const { Provider, Consumer } = createContext();
+import React, { useRef } from 'react';
 
 
 const App = () => { 
 
-    const [num, setNum] = useState(0);
+    const entrada = useRef();
 
-    const addNum = () => {
-        setNum(num + 1);
-    }
+    const focus = () => entrada.current.focus();
+
+    const blur = () => entrada.current.blur();
 
     return(
-        <Provider value={{
-            num,
-            setNum
-        }}>
-            <>  
-                <h1>Use context</h1>
-                <button onClick={addNum}>Clicks: ({num})</button>
-                <Hijo />
-            </>
-        </Provider>
+        <>  
+            <h1>Use Ref</h1>
+            <input 
+                type="text"
+                placeholder="Ingresa tu texto"
+                ref={entrada}
+            />
+            <button onClick={focus}>Focus</button>
+            <button onClick={blur}>Blur</button>
+        </>
     );
 };
 
