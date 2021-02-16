@@ -1,30 +1,28 @@
-import React,{useEffect, useState} from 'react';
+import React, { useState,createContext, useLayoutEffect } from 'react';
+import Hijo from './components/children';
 
+export const { Provider, Consumer } = createContext();
 
-const Photo = ({key,src,title}) => (
-    <div key={key} style={{display:"inline-block"}}>
-        <img src={src} alt={title}/>
-        <p>{title}</p>
-    </div>
-);
 
 const App = () => { 
 
-    const [photos, setPhotos] = useState([]);
+    const [num, setNum] = useState(0);
 
-    useEffect(()=>{
-
-        fetch("https://jsonplaceholder.typicode.com/photos")
-            .then(res => res.json())
-            .then(res => setPhotos(res.splice(0,10)))
-    },[]);
-
+    const addNum = () => {
+        setNum(num + 1);
+    }
 
     return(
-        <>  
-            <h1>PHOTOS</h1>
-            {photos.length > 0? photos.map( item => <Photo key={item.id} src={item.url} title={item.title}/> ):null}
-        </>
+        <Provider value={{
+            num,
+            setNum
+        }}>
+            <>  
+                <h1>Use context</h1>
+                <button onClick={addNum}>Clicks: ({num})</button>
+                <Hijo />
+            </>
+        </Provider>
     );
 };
 
