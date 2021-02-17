@@ -1,24 +1,21 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
 const App = () => { 
 
-    const ref = useRef();
     const [name,setName] = useState("");
+    const [search] = useDebounce(name,600);
     const [post,setPost] = useState({});
 
-    const handlerInput = () => setName(ref.current.value);
+    const handlerInput = (e) => setName(e.target.value);
 
     useEffect(()=>{
         //debounce
-        setTimeout(()=>{
-            if(name === ref.current.value){
-                fetch(`https://jsonplaceholder.typicode.com/todos/${name}`)
-                        .then(response => response.json())
-                        .then(post => setPost(post));
-
-            }
-        },600)
-    },[name])
+ 
+        fetch(`https://jsonplaceholder.typicode.com/todos/${name}`)
+                .then(response => response.json())
+                .then(post => setPost(post));
+    },[search])
 
     return(
         <>  
@@ -27,7 +24,6 @@ const App = () => {
                 type="text"
                 placeholder="Ingresa un numero"
                 onChange={handlerInput}
-                ref={ref}
             />
             {post.id && (
                 <div>
