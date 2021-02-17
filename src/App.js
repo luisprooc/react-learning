@@ -1,24 +1,40 @@
-import React, { useRef } from 'react';
-
+import React, { useRef, useEffect, useState } from 'react';
 
 const App = () => { 
 
-    const entrada = useRef();
+    const ref = useRef();
+    const [name,setName] = useState("");
+    const [post,setPost] = useState({});
 
-    const focus = () => entrada.current.focus();
+    const handlerInput = () => setName(ref.current.value);
 
-    const blur = () => entrada.current.blur();
+    useEffect(()=>{
+        //debounce
+        setTimeout(()=>{
+            if(name === ref.current.value){
+                fetch(`https://jsonplaceholder.typicode.com/todos/${name}`)
+                        .then(response => response.json())
+                        .then(post => setPost(post));
+
+            }
+        },600)
+    },[name])
 
     return(
         <>  
-            <h1>Use Ref</h1>
+            <h1>EXAMPLE WITH HOOKS</h1>
             <input 
                 type="text"
-                placeholder="Ingresa tu texto"
-                ref={entrada}
+                placeholder="Ingresa un numero"
+                onChange={handlerInput}
+                ref={ref}
             />
-            <button onClick={focus}>Focus</button>
-            <button onClick={blur}>Blur</button>
+            {post.id && (
+                <div>
+                    <h1>{post.title}</h1>
+                    <p>completed: {post.completed?"TRUE":"FALSE"}</p>
+                </div>
+            )}
         </>
     );
 };
