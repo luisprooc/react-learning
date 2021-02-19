@@ -1,46 +1,56 @@
-import React, { useImperativeHandle, useRef,forwardRef,useState } from 'react';
+import React, { useState,memo } from 'react';
 
 
-const FancyInput = forwardRef((props,ref) => {
+const Counter = memo(({count}) =>{
 
-    const entry = useRef();
-    const [text, setText] = useState("HOLAA");
-
-    useImperativeHandle(ref,() => ({
-        dispatchAlert : () => alert("ALERT!!!") ,
-        setParragrapf: (message) => setText(message),
-        handlerFocus: () => entry.current.focus()
-    })
-    )
+    console.log(`%cRender desde <Counter/>`,"color:green")
 
     return(
-        <>
-            <input
-                type="text"
-                placeholder="Add text"
-                ref={entry}
-            />
-            <p>{text}</p>
-        </>
+            <>
+                <h1>{count}</h1>
+            </>
     );
-    
+});
+
+const Title = memo(({title}) =>{
+
+    console.log(`%cRender desde <Title/>`,"color:orange")
+
+    return(
+            <>
+                <h1>{title}</h1>
+            </>
+    );
 });
 
 
 
 const App = () => { 
-
-    const fancyInput = useRef();
-
-    const handlerClick = () => fancyInput.current.handlerFocus();
     
+    const [title, setTitle] = useState("INITIAL TEXT");
+    const [count, setCount] = useState(0);
+
+    const handlerClick = () => setCount(count + 1);
+
+    const handlerText = (e) => setTitle(e.target.value);
+
+
     return(
         <>  
-            <h1>Hook useImperativeHandle</h1>
-            <FancyInput 
-                ref={fancyInput}
+            <h1>Hook useMemo</h1>
+            <input
+                type="text"
+                placeholder="Write another text"
+                onChange={handlerText}
             />
-            <button onClick={handlerClick}>dispatchAlert</button>
+            <button onClick={handlerClick}>Clicks</button>
+            <Counter 
+                count={count}
+            />
+
+            <Title 
+                title={title}
+            />
         </>
     );
 };
