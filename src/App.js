@@ -1,44 +1,46 @@
-import React, { useReducer } from 'react';
+import React, { useImperativeHandle, useRef,forwardRef,useState } from 'react';
 
-const reducer = ( state,action ) => {
 
-    switch(action.type){
-        case "INCREMENT":
-            return { ...state, clicks: state.clicks + 1 };
+const FancyInput = forwardRef((props,ref) => {
 
-        case "DECREMENT":
-            return {...state, clicks: state.clicks - 1 };
+    const entry = useRef();
+    const [text, setText] = useState("HOLAA");
 
-        case "CHANGETEXT":
-            return {...state, title: action.value };
+    useImperativeHandle(ref,() => ({
+        dispatchAlert : () => alert("ALERT!!!") ,
+        setParragrapf: (message) => setText(message),
+        handlerFocus: () => entry.current.focus()
+    })
+    )
 
-        default:
-            return state
-    }
-}
+    return(
+        <>
+            <input
+                type="text"
+                placeholder="Add text"
+                ref={entry}
+            />
+            <p>{text}</p>
+        </>
+    );
+    
+});
+
+
 
 const App = () => { 
 
-    const [state, dispatch] = useReducer(reducer,{
-        clicks: 0,
-        title: "Hola"
-    });
+    const fancyInput = useRef();
+
+    const handlerClick = () => fancyInput.current.handlerFocus();
     
-
-    const increment = () => dispatch({type: "INCREMENT"});
-
-    const decrement = () => dispatch({type: "DECREMENT"});
-
-    const handlerText = (e) => dispatch({ type: "CHANGETEXT", value:e.target.value });
-
-
     return(
         <>  
-            <h1>Hook useReducer</h1>
-            <p>{state.title} -- {state.clicks}</p>
-            <input type="text" onChange={handlerText}/>
-            <button onClick={increment}>Add</button>
-            <button onClick={decrement}>Less</button>
+            <h1>Hook useImperativeHandle</h1>
+            <FancyInput 
+                ref={fancyInput}
+            />
+            <button onClick={handlerClick}>dispatchAlert</button>
         </>
     );
 };
