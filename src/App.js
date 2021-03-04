@@ -23,6 +23,20 @@ const Title = memo(({title}) =>{
     );
 });
 
+const TitleNested = memo(( {title} ) =>{
+
+    console.log(`%cRender desde <Title/>`,"color:purple")
+
+    return(
+            <>
+                <h1>{title}</h1>
+            </>
+    );
+},
+    (prevProps, nextProps) => {
+        return prevProps.info.text === nextProps.info.text;
+    }
+);
 
 
 const App = () => { 
@@ -50,6 +64,12 @@ const App = () => {
 
             <Title 
                 title={title}
+            />
+
+            <TitleNested
+                info={{
+                    text:title
+                }}
             />
         </>
     );
