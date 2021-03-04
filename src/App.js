@@ -1,44 +1,54 @@
-import React, { useState,  memo, useCallback } from 'react';
+import React, { useState,  useMemo } from 'react';
 
 
-const randomColor = () => "#" + Math.random().toString(16).slice( 2,6 );
+const SuperList = ({list, log}) => {
 
+    console.log("Render desde SUPERLIST",log);
 
-const Button = memo(({ callback, children }) => {
-
-    const styles = {
-        padding: "0.5em",
-        background: randomColor()
-    };
-    
     return(
-        <button onClick={callback} style={styles}>
-            {children}
-        </button>
+        <ul>
+            {list.map( item => {
+
+                return(
+                    <li key={item}> {item} </li>
+                )
+            })}
+        </ul>
     );
-});
+};
+
 
 
 const App = () => { 
 
-    const [a, setA] = useState(0);
-    const [b, setB] = useState(0);
+    const [count, setCount] = useState(0);
 
-    const incrementA = useCallback( () => setA(a => a + 1), []);
+    const list = ["GO","PYTHON","RUST","JS"];
 
-    const incrementB = useCallback( () => setB(b => b + a), [a]);
+    const handlerClick = () => setCount(count + 1); 
+    
+    const memoList = useMemo(() => {
+        
+        return(
+            <SuperList
+                list={[1,2,3,4,5]}
+                log="Memorizado"
+            />
+        );
+    
+    }, []);
 
     return(
         <>  
-            <h1>Hook useCallback con dependencias</h1>
-            <Button callback={incrementA}>
-                Increment A
-            </Button>
+            <h1>Hook useMemo</h1>
 
-            <Button callback={incrementB}>
-                Increment B
-            </Button>
-            <p>{a} {b}</p>
+            <button onClick={handlerClick}> COUNT: {count} </button>
+            <SuperList
+                list={list}
+                log="Normal"
+            />
+
+            {memoList}
         </>
     );
 };
