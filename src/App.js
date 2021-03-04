@@ -1,76 +1,38 @@
-import React, { useState,memo } from 'react';
+import React, { useState,  memo, useCallback } from 'react';
 
 
-const Counter = memo(({count}) =>{
+const randomColor = () => "#" + Math.random().toString(16).slice( 2,6 );
 
-    console.log(`%cRender desde <Counter/>`,"color:green")
 
+const Button = memo(({ callback, children }) => {
+
+    const styles = {
+        padding: "0.5em",
+        background: randomColor()
+    };
+    
     return(
-            <>
-                <h1>{count}</h1>
-            </>
+        <button onClick={callback} style={styles}>
+            {children}
+        </button>
     );
 });
-
-const Title = memo(({title}) =>{
-
-    console.log(`%cRender desde <Title/>`,"color:orange")
-
-    return(
-            <>
-                <h1>{title}</h1>
-            </>
-    );
-});
-
-const TitleNested = memo(( {title} ) =>{
-
-    console.log(`%cRender desde <Title/>`,"color:purple")
-
-    return(
-            <>
-                <h1>{title}</h1>
-            </>
-    );
-},
-    (prevProps, nextProps) => {
-        return prevProps.info.text === nextProps.info.text;
-    }
-);
 
 
 const App = () => { 
-    
-    const [title, setTitle] = useState("INITIAL TEXT");
-    const [count, setCount] = useState(0);
 
-    const handlerClick = () => setCount(count + 1);
+    const [a, setA] = useState(0);
 
-    const handlerText = (e) => setTitle(e.target.value);
-
+    // useCallback se usa en conjunto con memo
+    const incrementA = useCallback( () => setA(a => a + 1), []);
 
     return(
         <>  
-            <h1>Hook useMemo</h1>
-            <input
-                type="text"
-                placeholder="Write another text"
-                onChange={handlerText}
-            />
-            <button onClick={handlerClick}>Clicks</button>
-            <Counter 
-                count={count}
-            />
-
-            <Title 
-                title={title}
-            />
-
-            <TitleNested
-                info={{
-                    text:title
-                }}
-            />
+            <h1>Hook useCallback</h1>
+            <Button callback={incrementA}>
+                Increment A
+            </Button>
+            <p>{a}</p>
         </>
     );
 };
