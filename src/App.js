@@ -22,17 +22,23 @@ const Button = memo(({ callback, children }) => {
 const App = () => { 
 
     const [a, setA] = useState(0);
+    const [b, setB] = useState(0);
 
-    // useCallback se usa en conjunto con memo
     const incrementA = useCallback( () => setA(a => a + 1), []);
+
+    const incrementB = useCallback( () => setB(b => b + a), [a]);
 
     return(
         <>  
-            <h1>Hook useCallback</h1>
+            <h1>Hook useCallback con dependencias</h1>
             <Button callback={incrementA}>
                 Increment A
             </Button>
-            <p>{a}</p>
+
+            <Button callback={incrementB}>
+                Increment B
+            </Button>
+            <p>{a} {b}</p>
         </>
     );
 };
