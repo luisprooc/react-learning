@@ -1,9 +1,8 @@
-import React, { useState,  useMemo } from 'react';
+import React, { useState } from 'react';
+import {useSizes} from "./components/hooks";
 
 
-const SuperList = ({list, log}) => {
-
-    console.log("Render desde SUPERLIST",log);
+const SuperList = ({list}) => {
 
     return(
         <ul>
@@ -22,33 +21,16 @@ const SuperList = ({list, log}) => {
 const App = () => { 
 
     const [count, setCount] = useState(0);
+    console.log(useSizes())
 
-    const list = ["GO","PYTHON","RUST","JS"];
 
     const handlerClick = () => setCount(count + 1); 
     
-    const memoList = useMemo(() => {
-        
-        return(
-            <SuperList
-                list={[1,2,3,4,5]}
-                log="Memorizado"
-            />
-        );
-    
-    }, []);
 
     return(
         <>  
-            <h1>Hook useMemo</h1>
+            <h1>Hooks personalizados</h1>
 
-            <button onClick={handlerClick}> COUNT: {count} </button>
-            <SuperList
-                list={list}
-                log="Normal"
-            />
-
-            {memoList}
         </>
     );
 };
