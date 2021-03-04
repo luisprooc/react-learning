@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useDebugValue } from "react";
 
 const useSizes = () => {
     const [x, setX] = useState(window.innerWidth);
@@ -8,6 +8,8 @@ const useSizes = () => {
         setX(window.innerWidth);
         setY(window.innerHeight);
     }
+
+    useDebugValue("Hook resize");
 
     useEffect(() => {
 
