@@ -1,40 +1,24 @@
-import React, { useState } from 'react';
-import {useHTTP} from "./components/hooks";
+import React, { useState,Children } from 'react';
 
-
-const SuperList = ({list}) => {
+const Parent = ({children: originalCh}) => {
+    const ch = Children.map(originalCh, child => child);
 
     return(
-        <ul>
-            {list.map( item => {
-
-                return(
-                    <li key={item}> {item} </li>
-                )
-            })}
-        </ul>
+        <div style={{border:"2px dashed blue", padding:"4rem"}}>
+            {originalCh}
+        </div>
     );
 };
 
 
-
 const App = () => { 
-    const [count, setCount] = useState(1);
-    const [res,isFecthing] = useHTTP(`https://jsonplaceholder.typicode.com/todos/${count}`);
-
-    const handlerInput = () => setCount(count + 1);
     
     return(
         <>  
-            <h1>Hooks personalizados</h1>
-            <button onClick={handlerInput}>ADD</button>
-            {isFecthing && <p>LOADNING ...</p>}
-            {res?(
-                <>
-                    <p>{res.title}</p>
-                    <p>{res.id}</p>
-                </>
-            ):null}
+            <Parent>
+                <p>Pruebas</p>
+                {1 + 1}
+            </Parent>
         </>
     );
 };
