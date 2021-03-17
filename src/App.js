@@ -1,24 +1,23 @@
-import React from 'react';
-import { Button, Counter,Title } from "./components/Counter";
+import React,{ useState,lazy,Suspense } from 'react';
+//import Image from './components/lazy/image';
+
+// Code splitting
+const Image = lazy(() => import("./components/lazy/image"));
 
 const App = () => { 
     
+    const [show, setShow] = useState(false);
+
+    const handler = () => setShow(!show);
+
     return(
         <>  
-            <Counter>
-                <Title/>
-                <Button 
-                    type="decrement"
-                />
-                <Button />
-                <Title>
-                    {(click) => (
-                        <div>
-                            <h1>{click}</h1>
-                        </div>
-                    )}
-                </Title>
-            </Counter>
+            <button onClick={handler}>SHOW</button>
+            {show && (
+            <Suspense fallback={<h1>LOADING...</h1>}>
+                <Image/>
+            </Suspense>    
+            )}
         </>
     );
 };
