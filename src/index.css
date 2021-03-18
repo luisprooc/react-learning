@@ -3,3 +3,12 @@ body{
     font-style: italic;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+.circle{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background: black;
+    transition: background 800ms ease;
+}
+

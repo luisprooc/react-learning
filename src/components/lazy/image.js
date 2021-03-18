@@ -1,4 +1,5 @@
 import React from 'react';
+import "./image.css";
 
 const Image = () => (
     
@@ -6,7 +7,7 @@ const Image = () => (
         <img
             src="../../pexels.jpg"
             alt="Foto de Pixabay en Pexels"
-            width="100%"
+            className="img"
         />
     </>
 );

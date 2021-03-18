@@ -1,24 +1,14 @@
-import React,{ useState,lazy,Suspense } from 'react';
-//import Image from './components/lazy/image';
+import React,{useState} from 'react';
 
-// Code splitting
-const Image = lazy(() => import("./components/lazy/image"));
 
 const App = () => { 
-    
-    const [show, setShow] = useState(false);
 
-    const handler = () => setShow(!show);
+    const [value, setValue] = useState(false);
+    const active = value ? "red" : "black";
 
     return(
-        <>  
-            <button onClick={handler}>SHOW</button>
-            {show && (
-            <Suspense fallback={<h1>LOADING...</h1>}>
-                <Image/>
-            </Suspense>    
-            )}
-        </>
+        <div className="circle" style={{background:active}} onClick={() => setValue(!value)}>  
+        </div>
     );
 };
 
