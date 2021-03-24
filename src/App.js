@@ -1,46 +1,23 @@
 import React from 'react';
-import Zoom from 'react-reveal/Zoom';
-import Bounce from 'react-reveal/Bounce';
-
+import styled from "styled-components";
+//import "./styles.css";
 
 const App = () => { 
     return(
         <>  
-            <Zoom>
-
-                <section>
-                    <h3>TITULO</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    </p>
-                </section>
-            </Zoom>
-            <section>
-                <h3>TITULO</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                </p>
-            </section>
-            <section>
-                <h3>TITULO</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                </p>
-            </section>
-            <Bounce>
-                <section>
-                    <h3>TITULO</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    </p>
-                </section>
-            </Bounce>
+            <H1>
+                Hola
+            </H1>
         </>
     );
 };
 
 export default App;
+
+const color = "red";
+
+const H1 = styled.h1`
+    /*color: var(--colorPrincipal);*/
+    font-size: 5rem;
+    color: ${color};
+`;
