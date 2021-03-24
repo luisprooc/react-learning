@@ -1,0 +1,40 @@
+.carrousel {
+    width: 90vw;
+    height: 100vh;
+    background-color: blanchedalmond;
+    overflow: hidden;
+    position: relative;
+}
+
+.carrousel-img {
+    width: 90%;
+    position: absolute;
+    left: 0;
+}
+
+
+.slide-enter {
+    position: absolute;
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.slide-enter-active {
+    position: absolute;
+    transform: translateY(0%);
+    opacity: 1;
+    transition: all 1s ease;
+}
+
+.slide-exit {
+    position: absolute;
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+.slide-exit-active {
+    position: absolute;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 1s ease;
+}

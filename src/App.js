@@ -1,29 +1,19 @@
-import React,{useState} from 'react';
-import {TransitionGroup, CSSTransition} from "react-transition-group";
+import React from 'react';
+import Carrousel from "./components/carrousel";
+import ISW from "./images/ISW.jpg";
+import ITL from "./images/ITL.jpg";
+import IAS from "./images/IAS.jpg";
 
 const App = () => { 
-
-    const [count, setCount] = useState(0);
-
-    const add = () => setCount(count + 1);
-
     return(
         <>
-            <button onClick={add}>
-                +
-            </button>
-            <TransitionGroup>
-                <CSSTransition
-                    timeout={100}
-                    classNames="fade"
-                    key={count}
-                >
-                    <div>
-                        {count}
-                    </div>
-                </CSSTransition>
-
-            </TransitionGroup>
+            <Carrousel
+                images={
+                    [
+                        ISW, ITL, IAS
+                    ]
+                }
+            />
         </>
     );
 };
