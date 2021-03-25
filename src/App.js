@@ -1,32 +1,28 @@
 import React from 'react';
-import styled from "styled-components";
+import styled,{createGlobalStyle} from "styled-components";
 //import "./styles.css";
-
-const getGradient = (rot, color1, color2) => {
-    return `background: linear-gradient(${rot},${color1},${color2});`;
-}
 
 const App = () => { 
     return(
         <>  
-            <Header>
-                <h1>
-                    Hola
-                </h1>
-
-            </Header>
+            <GlobalStyles/>
+            <h1>
+                Hola
+            </h1>
+            <Button >CLICK</Button>
         </>
     );
 };
 
 export default App;
 
-const color = "red";
+const Button = styled.button`
+    padding: 0.5rem 4rem;
+    background-color: ${props => props.danger?"red":"white"};
+`;
 
-const Header = styled.header`
-    ${getGradient("180deg",color,"blue")};
-
-    h1{
-        color: red;
+const GlobalStyles = createGlobalStyle`
+    body{
+        font-family: Arial, Helvetica, sans-serif;
     }
 `;
