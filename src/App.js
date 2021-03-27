@@ -1,28 +1,51 @@
 import React from 'react';
-import styled,{createGlobalStyle} from "styled-components";
-//import "./styles.css";
+import { BrowserRouter, Route,Link } from "react-router-dom";
+
+
+const Hola = () => {
+    return(
+        <h1>Hola</h1>
+    );
+};
+
+const Home = () => {
+    return(
+        <h1>Home</h1>
+    );
+};
+
+const Productos = () => {
+    return(
+        <h1>Productos</h1>
+    );
+};
+
+
+const Nav = () => {
+    return(
+        <nav>
+            <Link to={{
+                pathname:"/",
+                search: "?ho",
+                hash: "#otro"
+            }}>Home  //</Link>
+            
+            <Link to="/hola"> Hola //</Link>
+            <Link to="/productos"> Productos</Link>
+        </nav>
+    );
+};
 
 const App = () => { 
     return(
-        <>  
-            <GlobalStyles/>
-            <h1>
-                Hola
-            </h1>
-            <Button >CLICK</Button>
-        </>
+        <BrowserRouter>
+            <Nav />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/hola" component={Hola} />
+            <Route exact path="/productos" component={Productos} />
+        </BrowserRouter>
     );
 };
 
 export default App;
 
-const Button = styled.button`
-    padding: 0.5rem 4rem;
-    background-color: ${props => props.danger?"red":"white"};
-`;
-
-const GlobalStyles = createGlobalStyle`
-    body{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-`;
