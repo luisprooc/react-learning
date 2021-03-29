@@ -1,23 +1,20 @@
 import React  from 'react';
 import { connect } from "react-redux";
-import actions from "../actions";
+import actions from "./actions";
 
-const Counter = ( { count, increment, decrement } ) => {
+const Counter = ( { counter, increment, decrement } ) => {
 
     return (
         <>
             <button onClick={increment}>ADD</button>
             <button onClick={decrement}>LESS</button>
-            <h1>{count}</h1>
+            <h1> Clicks: {counter} </h1>
         </>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        count: state
-    }
-};
+const mapStateToProps = (state) => state;
+ 
 
 const mapDispatchToProps = (dispatch) => {
     const { INCREMENT,DECREMENT } = actions;

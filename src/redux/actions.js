@@ -1,7 +1,5 @@
-const actions = {
+export default {
     INCREMENT:"INCREMENT",
     DECREMENT: "DECREMENT",
     CHANGETEXT: "CHANGETEXT"
-}
-
-export default actions;
+};
