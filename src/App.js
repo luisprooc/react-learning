@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route,Link } from "react-router-dom";
+import { BrowserRouter, Route,Link,NavLink } from "react-router-dom";
 
 
 const Hola = () => {
@@ -24,15 +24,31 @@ const Productos = () => {
 const Nav = () => {
     return(
         <nav>
-            <Link to={{
-                pathname:"/",
-                search: "?ho",
-                hash: "#otro"
-            }}>Home  //</Link>
-            
-            <Link to="/hola"> Hola //</Link>
-            <Link to="/productos"> Productos</Link>
+            <NavLink to="/">Home  //</NavLink>
+            <NavLink to="/hola" > Hola //</NavLink>
+            <NavLink to="/productos"> Productos</NavLink>
+            <NavLink to="/ropa"> Ropa</NavLink>
         </nav>
+    );
+};
+
+const Category = ({match}) => {
+    return(
+        <>
+            <h2>{match.params.category} </h2>
+        </>
+    );
+};
+
+const Ropa = ({location}) => {
+
+    const query = new URLSearchParams(location.search);
+    const color = query.get("color");
+
+    return(
+        <>
+            <h1>Ropa : {color}</h1>
+        </>
     );
 };
 
@@ -40,9 +56,11 @@ const App = () => {
     return(
         <BrowserRouter>
             <Nav />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/hola" component={Hola} />
-            <Route exact path="/productos" component={Productos} />
+            <Route exact path="/" render={Home} />
+            <Route exact path="/hola" render={Hola} />
+            <Route exact path="/productos" render={Productos} />
+            <Route exact path="/productos/:category" render={Category} />
+            <Route exact path="/ropa" render={Ropa} />
         </BrowserRouter>
     );
 };
