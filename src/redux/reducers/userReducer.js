@@ -1,13 +1,18 @@
 import actions from "../actions";
 
-const user = ( state = { name: "Luis"}, action ) => {
+const initialState = {
+    name: "Luis",
+    country: "RD"
+}
 
-    const { CHANGETEXT } = actions;
+const user = ( state = initialState, action ) => {
+
+    const { INFO_CHANGETEXT } = actions;
 
     switch(action.type){
 
-        case CHANGETEXT:
-            return {...state, name: action.value};
+        case INFO_CHANGETEXT:
+            return {...state, name: action.payload.name};
 
         default:
             return state;

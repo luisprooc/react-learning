@@ -5,25 +5,30 @@ import actions from "./actions";
 const Info = ( { changeText,user } ) => {
 
     return (
-        <>
+        <div style={{ background:"#FAF6F6", color: "#2E3140" }}>
             <input
                 type="text"
                 placeholder="Change user"
                 onChange={(e) => changeText(e.target.value)}
             />
             <h1> {user.name} </h1>
-        </>
+            <h5> {user.country} </h5>
+        </div>
     )
 }
 
-const mapStateToProps = (state) => state;
- 
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+};
+
 
 const mapDispatchToProps = (dispatch) => {
-    const { CHANGETEXT } = actions;
+    const { INFO_CHANGETEXT } = actions;
 
     return {
-        changeText: ( value )=> dispatch({ type: CHANGETEXT, value}),
+        changeText: ( name )=> dispatch({ type: INFO_CHANGETEXT, payload: { name }}),
     }
 };
 

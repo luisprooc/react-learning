@@ -17,11 +17,11 @@ const mapStateToProps = (state) => state;
  
 
 const mapDispatchToProps = (dispatch) => {
-    const { INCREMENT,DECREMENT } = actions;
+    const { COUNTER_INCREMENT,COUNTER_DECREMENT } = actions;
 
     return {
-        increment: ()=> dispatch({ type: INCREMENT }),
-        decrement: ()=> dispatch({ type: DECREMENT }),
+        increment: ()=> dispatch({ type: COUNTER_INCREMENT }),
+        decrement: ()=> dispatch({ type: COUNTER_DECREMENT }),
     }
 };
 

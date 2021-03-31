@@ -1,14 +1,14 @@
 import actions from "../actions";
 
 const counter = ( state = 0, action ) => {
-    const { INCREMENT, DECREMENT } = actions;
+    const { COUNTER_INCREMENT, COUNTER_DECREMENT } = actions;
 
     switch( action.type ){
         
-        case INCREMENT:
+        case COUNTER_INCREMENT:
             return state + 1;
 
-        case DECREMENT:
+        case COUNTER_DECREMENT:
             return state - 1;
 
         default:
