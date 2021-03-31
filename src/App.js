@@ -3,14 +3,14 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 //import Counter from "./redux/counter"
 //import Info from "./redux/info";
-import Fruits from "./redux/fruits";
+import Todo from "./components/Todos/todo"
 
 const App = () => { 
 
 
     return(
         <Provider store={store} >
-            <Fruits />
+            <Todo />
         </Provider>
     );
 };
