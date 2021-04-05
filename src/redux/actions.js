@@ -5,4 +5,15 @@ const actions = {
     TODO_ADD: "FRUITS_ADD"
 };
 
+export const asyncIncrement = (delay) => (dispatch) => {
+
+    setTimeout(() => {
+        dispatch({
+            type: actions.COUNTER_INCREMENT
+        });
+        
+    }, delay);
+}
+
+
 export default actions;
