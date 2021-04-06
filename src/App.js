@@ -1,19 +1,12 @@
 import React  from 'react';
-import store from "./redux/store";
-import { Provider } from "react-redux";
-//import Counter from "./redux/counter"
-//import Info from "./redux/info";
-//import Todo from "./components/Todos/todo";
-import Blog from "./components/Blog";
 
 const App = () => { 
 
 
     return(
-        <Provider store={store} >
-            {/*<Todo />*/}
-            <Blog />
-        </Provider>
+        <>
+            <h1>HELLO WORLD</h1>
+        </>
     );
 };
 

@@ -1,0 +1,15 @@
+import App from "../App";
+
+/*
+describe("Grupo de pruebas de ejemplo", () => {
+    
+    test("Una prueba de algo", () => {
+        expect(10 + 10).toBe(10);
+    });
+
+    test("Una resta", () => {
+        expect(10 - 10).toBe(0);
+    });
+});
+
+*/
