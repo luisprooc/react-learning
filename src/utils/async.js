@@ -6,7 +6,10 @@ export const getData = (callback) => {
     }, 1300);
 };
 
+export const getDataPromise = (error = false) => new Promise((resolve,reject) => {
+    setTimeout(() => {
+        if(error) reject("REJECTED");
 
-const nombre = getData((name) => {
-    console.log(name);
+        else resolve([1,2,3]);
+    }, 100);
 });

@@ -1,12 +1,12 @@
-import {  getData } from "../utils/async";
+import {  getData,getDataPromise } from "../utils/async";
 
 describe("Testeando operaciones asincronas", () => {
 
-    test("Haciendo test a callback", (done) => {
-        getData((name) => {
-            expect(name).toBe("LUISPROOC");
+    test("Haciendo test a promesa", () => {
+        return expect(getDataPromise()).resolves.toEqual([1,2,3]);
+    });
 
-            done();
-        })
+    test("Haciendo test a promesa reject", () => {
+        return expect(getDataPromise(true)).rejects.toBe("REJECTED");
     });
 });
