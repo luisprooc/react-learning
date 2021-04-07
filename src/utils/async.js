@@ -13,3 +13,9 @@ export const getDataPromise = (error = false) => new Promise((resolve,reject) =>
         else resolve([1,2,3]);
     }, 100);
 });
+
+export const getDataUser = async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users/4");
+
+    return await res.json();
+};
